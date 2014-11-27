@@ -1,0 +1,13 @@
+.content {
+  padding-top: 40px;
+  height: 100%;
+  overflow: scroll;
+}
+
+.wrapper {
+  padding: 10px 10px 10px 10px;
+}
+
+.centered {
+  text-align: center;
+}

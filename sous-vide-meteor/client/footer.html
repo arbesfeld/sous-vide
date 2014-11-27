@@ -1,0 +1,16 @@
+<template name="Footer">
+  <div class="tabs tabs-icon-top">
+    <a href="{{pathFor 'home'}}" class="tab-item {{#if onPage 'home'}}positive{{/if}}">
+      <i class="icon ion-home"></i>
+      Home
+    </a>
+    <a href="{{pathFor 'favorites'}}" class="tab-item {{#if onPage 'favorites'}}positive{{/if}}">
+      <i class="icon ion-star"></i>
+      Favorites
+    </a>
+    <a href="{{pathFor 'search'}}" class="tab-item {{#if onPage 'search'}}positive{{/if}}">
+      <i class="icon ion-search"></i>
+      Browse
+    </a>
+  </div>
+</template>
