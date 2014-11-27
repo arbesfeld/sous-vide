@@ -1,1 +1,3 @@
 APP_NAME = "Sous Vide";
+
+IS_COOKING_KEY = "IS_COOKING_KEY";

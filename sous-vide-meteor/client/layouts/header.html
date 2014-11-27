@@ -1,0 +1,23 @@
+<template name="Header">
+  <div class="bar bar-header bar-positive">
+    <button class="button icon-left ion-gear-a" id="settings">
+      {{#unless currentUser}}
+        Sign In
+      {{/unless}}
+    </button>
+    <h1 class="title">{{> yield 'PageHeader'}}</h1>
+    <button class="button {{iconClasses}}" id="sign-in">
+      {{#unless currentUser}}
+        Sign In
+      {{/unless}}
+    </button>
+  </div>
+
+  {{#if isCooking}}
+    <div class="bar bar-subheader bar-balanced">
+      <h2 class="title">We're Cooking!</h2>
+      <a href="{{pathFor 'cooking'}}" class="button icon-right button-clear ion-chevron-right" id="goto-cooking">Go
+      </a>
+    </div>
+  {{/if}}
+</template>

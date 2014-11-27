@@ -4,7 +4,7 @@
 
 <template name="Layout">
   {{> Header}}
-  <div class="content">
+  <div style="{{#if isCooking}} padding-top:87px; {{/if}}" class="content">
     {{> yield}}
   </div>
   {{> Footer}}

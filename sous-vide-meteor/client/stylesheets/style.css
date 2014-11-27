@@ -1,11 +1,11 @@
 .content {
-  padding-top: 40px;
+  padding-top: 44px;
   height: 100%;
   overflow: scroll;
 }
 
 .wrapper {
-  padding: 10px 10px 10px 10px;
+  padding: 0px 10px 10px 10px;
 }
 
 .centered {

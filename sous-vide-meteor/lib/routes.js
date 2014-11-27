@@ -11,7 +11,6 @@ Router.route('/', function () {
 
 Router.route('/settings', function () {
   this.render('Settings');
-  this.render('HomeButton', { to: 'LeftHeader'} );
 }, {
   name: 'settings'
 });
@@ -34,18 +33,22 @@ Router.route('/signin', function () {
   name: 'signin'
 });
 
+Router.route('/cooking', function () {
+  this.render('Cooking');
+}, {
+  name: 'cooking'
+});
+
 Router.onBeforeAction(function() {
   if (! Meteor.userId() ) {
     this.render('SignIn');
-  } else {
-    this.next();
   }
+  this.next();
 }, {except: ['home']});
 
 Router.onBeforeAction(function () {
   if (Meteor.loggingIn()) {
     this.layout('Loading');
-  } else {
-    this.next();
   }
+  this.next();
 });
