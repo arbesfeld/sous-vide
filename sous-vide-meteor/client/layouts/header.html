@@ -1,16 +1,13 @@
 <template name="Header">
   <div class="bar bar-header bar-positive">
-    <button class="button icon-left ion-gear-a" id="settings">
-      {{#unless currentUser}}
-        Sign In
-      {{/unless}}
-    </button>
+    <a href="{{pathFor 'settings'}}" class="button button-clear icon-left ion-gear-a" id="settings">
+    </a>
     <h1 class="title">{{> yield 'PageHeader'}}</h1>
-    <button class="button {{iconClasses}}" id="profile">
+    <a class="button button-clear {{iconClasses}}" id="profile">
       {{#unless currentUser}}
         Sign In
       {{/unless}}
-    </button>
+    </a>
   </div>
 
   {{#if isCooking}}

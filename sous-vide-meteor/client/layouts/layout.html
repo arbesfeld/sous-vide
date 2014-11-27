@@ -1,10 +1,11 @@
 <head>
   <title> Sous Vide </title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 
 <template name="Layout">
   {{> Header}}
-  <div style="{{#if isCooking}} padding-top:87px; {{/if}}" class="content">
+  <div style="{{#if isCooking}} top:87px; {{/if}}" class="content">
     {{> yield}}
   </div>
   {{> Footer}}

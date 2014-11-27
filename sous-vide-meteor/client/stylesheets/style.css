@@ -1,8 +1,21 @@
-.content {
-  padding-top: 44px;
+
+html, body {
+  position: absolute;
   height: 100%;
-  overflow: scroll;
+  width: 100%;
+  padding: 0;
 }
+
+.content {
+  position: absolute;
+  top: 43px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 
 .wrapper {
   padding: 0px 10px 10px 10px;
