@@ -2,10 +2,34 @@
   {{#contentFor 'PageHeader'}}
     Sous Vide
   {{/contentFor}}
+  <div class="centered">
+    <div class="list">
+      <div class="item item-divider">
+      </div>
+      <div class="item range">
+        <i class="icon ion-ios7-snowy"></i>
+        <input type="range" name="temperature">
+        <i class="icon ion-flame"></i>
+      </div>
 
-  <div class="wrapper centered">
-    <button class="button button-balanced button-block button-full-width" id="cook">
-      Let's Cook!
-    </button>
+
+      <div class="item range">
+        <i class="icon ion-ios7-timer-outline"></i>
+        <input type="range" name="time">
+        <i class="icon ion-ios7-timer"></i>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
+    <div class="wrapper">
+      <br>
+      <h2>{{temperature}}&deg;C</h2>
+      <h4>for</h4>
+      <h2 style="margin-top:0px;">{{time}}</h2><br>
+
+      <button class="button button-balanced button-block button-full-width" id="cook">
+        Let's Cook!
+      </button>
+    </div>
   </div>
 </template>

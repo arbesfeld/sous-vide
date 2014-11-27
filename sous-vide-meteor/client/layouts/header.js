@@ -1,5 +1,5 @@
 Template.Header.events({
-  'click #sign-in': function () {
+  'click #profile': function () {
     if (Meteor.user()) {
       Router.go("profile");
     } else {

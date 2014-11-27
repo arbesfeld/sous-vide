@@ -15,6 +15,12 @@ Router.route('/settings', function () {
   name: 'settings'
 });
 
+Router.route('/profile', function () {
+  this.render('Profile');
+}, {
+  name: 'profile'
+});
+
 Router.route('/favorites', function () {
   this.render('Favorites');
 }, {
@@ -34,7 +40,7 @@ Router.route('/signin', function () {
 });
 
 Router.route('/cooking', function () {
-  this.render('Cooking');
+  this.layout('Cooking');
 }, {
   name: 'cooking'
 });
