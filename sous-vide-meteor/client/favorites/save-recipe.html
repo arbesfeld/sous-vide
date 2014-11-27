@@ -1,0 +1,38 @@
+<template name="SaveRecipe">
+  {{#contentFor 'PageHeader'}}
+    Sous Vide
+  {{/contentFor}}
+
+  <div class="list">
+    <label class="item item-input">
+      <span class="input-label {{#if hasError 'name'}}assertive{{/if}}">Name</span>
+      <input name="name" type="text" placeholder="Steak">
+    </label>
+    <label class="item item-input">
+      <span class="input-label {{#if hasError 'doneness'}}assertive{{/if}}">Doneness</span>
+      <select name="doneness">
+        <option value="rare">Rare</option>
+        <option value="medium-rare">Medium-Rare</option>
+        <option value="medium" selected>Medium</option>
+        <option value="medium-well">Medium-Well</option>
+        <option value="well-done">Well-Done</option>
+      </select>
+    </label>
+    <label class="item item-input">
+      <span class="input-label {{#if hasError 'temperature'}}assertive{{/if}}">Temperature</span>
+      <input type="number" pattern="[0-9]*" name="temperature" value="{{temp}}">
+      <span class="right-input-label">&deg;C</span>
+    </label>
+    <label class="item item-input">
+      <span class="input-label {{#if hasError 'time'}}assertive{{/if}}">Duration</span>
+      <input type="number" pattern="[0-9]*" name="time" value="{{time}}">
+      <span class="right-input-label">minutes</span>
+    </label>
+  </div>
+
+  <div class="wrapper">
+    <button class="button button-positive button-block button-full-width {{#if isLocked}}disabled{{/if}}" id="save">
+      Save Recipe
+    </button>
+  </div>
+</template>

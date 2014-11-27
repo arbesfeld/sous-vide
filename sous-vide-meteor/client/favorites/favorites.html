@@ -3,5 +3,15 @@
     Favorites
   {{/contentFor}}
 
-  Favorites
+  <div class="list">
+    {{#each favoriteRecipes}}
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-star"></i>
+        {{name}} - {{doneness}}
+        <span class="item-note">
+          {{hrMinFormat time}}/{{temperature}}&deg;C
+        </span>
+      </a>
+    {{/each}}
+  </div>
 </template>

@@ -24,7 +24,16 @@ Router.route('/profile', function () {
 Router.route('/favorites', function () {
   this.render('Favorites');
 }, {
-  name: 'favorites'
+  name: 'favorites',
+
+  waitOn: function () {
+    return [Meteor.subscribe("userData"), Meteor.subscribe("favoriteRecipes")];
+  },
+  data: function () {
+    return {
+      favoriteRecipes: Recipes.find()
+    };
+  }
 });
 
 Router.route('/search', function () {
@@ -45,16 +54,34 @@ Router.route('/cooking', function () {
   name: 'cooking'
 });
 
+
+Router.route('/save-recipe/:temp/:time', function () {
+  var self = this;
+  this.render('SaveRecipe', {
+    data: function () {
+      return {
+        temp: self.params.temp,
+        time: self.params.time
+      };
+    }
+  });
+}, {
+  name: 'save-recipe'
+});
+
 Router.onBeforeAction(function() {
   if (! Meteor.userId() ) {
     this.render('SignIn');
+  } else {
+    this.next();
   }
-  this.next();
-}, {except: ['home']});
+}, {except: ['home', 'cooking']});
 
 Router.onBeforeAction(function () {
   if (Meteor.loggingIn()) {
     this.layout('Loading');
+  } else {
+    this.next();
+
   }
-  this.next();
 });

@@ -24,11 +24,17 @@ Template.Home.helpers({
   },
 
   time: function () {
-    var hours = Math.floor(time.get() / 60);
-    var minutes = Math.floor(time.get() - 60 * hours);
-    return hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+    return hrMinFormat(time.get());
   }
 });
+
+var getCookTemp = function () {
+  return mapTemp($('input[name=temperature]').val());
+};
+
+var getCookTime = function () {
+  return mapTemp($('input[name=time]').val());
+};
 
 Template.Home.events({
   'click #cook': function () {
@@ -40,8 +46,18 @@ Template.Home.events({
     Router.go('cooking');
   },
 
+  'click #save': function () {
+    var temp = getCookTemp();
+    var time = getCookTime();
+
+    Router.go('save-recipe', {
+      temp: temp,
+      time: time
+    });
+  },
+
   'input input': function () {
-    temperature.set(mapTemp($('input[name=temperature]').val()));
-    time.set(mapTime($('input[name=time]').val()));
+    temperature.set(getCookTemp());
+    time.set(getCookTime());
   }
 });

@@ -24,11 +24,16 @@
     <div class="wrapper">
       <h2>{{temperature}}&deg;C</h2>
       <h4>for</h4>
-      <h2 style="margin-top:0px;">{{time}}</h2>
+      <h2 style="margin-top:0px; padding-bottom:10px">{{time}}</h2>
 
-      <button class="button button-positive button-block button-full-width" id="cook">
-        Let's Cook!
-      </button>
+      <div class="button-bar">
+        <button class="button button-energized" id="save">
+          Save
+        </button>
+        <button class="button button-positive" id="cook">
+          Cook
+        </button>
+      </div>
     </div>
   </div>
 </template>
