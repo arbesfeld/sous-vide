@@ -34,13 +34,21 @@ startCooking = function (opts) {
   };
 
   if (Session.get(IS_COOKING_KEY)) {
-    Alert.confirm(
-      'Already cooking, are you sure you want to start a new recipe?',
-      confirm,
-      'Already Cooking',
-      ['Continue', 'Exit']
-    );
+    var msg = 'Already cooking, are you sure you want to start a new recipe?';
+    if (Meteor.isCordova) {
+      navigator.notification.confirm(
+        msg,
+        confirm,
+        'Already Cooking',
+        ['Continue', 'Exit']
+      );
+    } else {
+      var res = confirm(msg);
+      if (res)
+        confirm();
+    }
   } else {
     confirm();
   }
 };
+
