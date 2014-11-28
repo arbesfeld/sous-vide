@@ -1,7 +1,13 @@
 <template name="Header">
   <div class="bar bar-header bar-positive">
-    <a href="{{pathFor 'settings'}}" class="button button-clear icon-left ion-gear-a" id="settings">
-    </a>
+    {{#if renderBackButton}}
+      <a href="{{pathFor 'home'}}" class="button button-clear icon-left ion-chevron-left">
+        Back
+      </a>
+    {{else}}
+      <a href="{{pathFor 'settings'}}" class="button button-clear icon-left ion-gear-a" id="settings">
+      </a>
+    {{/if}}
     <h1 class="title">{{> yield 'PageHeader'}}</h1>
     <a class="button button-clear {{iconClasses}}" id="profile">
       {{#unless currentUser}}
@@ -13,7 +19,7 @@
   {{#if isCooking}}
     <div class="bar bar-subheader bar-balanced">
       <h2 class="title">We're Cooking!</h2>
-      <a href="{{pathFor 'cooking'}}" class="button icon-right button-clear ion-chevron-right" id="goto-cooking">Go
+      <a href="{{pathFor 'cooking.view'}}" class="button icon-right button-clear ion-chevron-right" id="goto-cooking">Go
       </a>
     </div>
   {{/if}}

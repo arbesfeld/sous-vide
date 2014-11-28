@@ -14,3 +14,7 @@ hrMinFormat = function (time) {
 };
 
 UI.registerHelper('hrMinFormat', hrMinFormat);
+
+UI.registerHelper('degreeSign', function () {
+  return "&deg;C";
+})

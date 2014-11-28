@@ -11,4 +11,5 @@ service-configuration
 sacha:spin
 reactive-var
 aldeed:collection2
+arbesfeld:alert
 

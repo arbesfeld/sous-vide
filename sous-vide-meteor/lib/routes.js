@@ -1,6 +1,27 @@
 Router.configure({
   layoutTemplate: 'Layout',
-  loadingTemplate: 'Loading'
+  loadingTemplate: 'Loading',
+});
+
+Router.onBeforeAction(function () {
+  this.render('Header', { to: 'header' });
+  this.next();
+});
+
+Router.onBeforeAction(function() {
+  if (! Meteor.userId() ) {
+    this.render('SignIn');
+  } else {
+    this.next();
+  }
+}, {except: ['home', 'cooking']});
+
+Router.onBeforeAction(function () {
+  if (Meteor.loggingIn()) {
+    this.layout('Loading');
+  } else {
+    this.next();
+  }
 });
 
 Router.route('/', function () {
@@ -27,7 +48,10 @@ Router.route('/favorites', function () {
   name: 'favorites',
 
   waitOn: function () {
-    return [Meteor.subscribe("userData"), Meteor.subscribe("favoriteRecipes")];
+    if (Meteor.user())
+      return [Meteor.subscribe("userData"), Meteor.subscribe("favoriteRecipes")];
+    else
+      return [];
   },
   data: function () {
     return {
@@ -49,7 +73,22 @@ Router.route('/signin', function () {
 });
 
 Router.route('/cooking', function () {
+  var self = this;
   this.layout('Cooking');
+}, {
+  name: 'cooking.view'
+});
+
+Router.route('/cooking/:temp/:time', function () {
+  var self = this;
+  this.layout('Cooking', {
+    data: function () {
+      return {
+        temp: self.params.temp,
+        time: self.params.time
+      };
+    }
+  });
 }, {
   name: 'cooking'
 });
@@ -65,23 +104,14 @@ Router.route('/save-recipe/:temp/:time', function () {
       };
     }
   });
+
+  this.render('Header', {
+    to: 'header',
+    data: function () {
+      return {
+        renderBackButton: true
+      };
+    }});
 }, {
   name: 'save-recipe'
-});
-
-Router.onBeforeAction(function() {
-  if (! Meteor.userId() ) {
-    this.render('SignIn');
-  } else {
-    this.next();
-  }
-}, {except: ['home', 'cooking']});
-
-Router.onBeforeAction(function () {
-  if (Meteor.loggingIn()) {
-    this.layout('Loading');
-  } else {
-    this.next();
-
-  }
 });

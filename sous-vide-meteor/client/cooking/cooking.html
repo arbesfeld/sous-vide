@@ -7,7 +7,20 @@
   </div>
 
   <div class="content">
+
     <div class="wrapper">
+      <div class="card">
+        <div class="item item-text-wrap centered">
+          <h2>Current Temp<br></h2>
+          <h1 class="{{tempColor}}">{{currentTemp}}{{{degreeSign}}}<br></h1>
+          <h3>Target: {{targetTemp}}{{{degreeSign}}}</h3>
+        </div>
+      </div>
+      <div class="card">
+        <div class="item item-text-wrap">
+          This is a basic Card which contains an item that has wrapping text.
+        </div>
+      </div>
       <button class="button button-assertive button-block button-full-width" id="stop-cooking">
         Stop Cooking
       </button>

@@ -1,6 +1,6 @@
 <template name="SaveRecipe">
   {{#contentFor 'PageHeader'}}
-    Sous Vide
+    Save Recipe
   {{/contentFor}}
 
   <div class="list">
@@ -21,7 +21,7 @@
     <label class="item item-input">
       <span class="input-label {{#if hasError 'temperature'}}assertive{{/if}}">Temperature</span>
       <input type="number" pattern="[0-9]*" name="temperature" value="{{temp}}">
-      <span class="right-input-label">&deg;C</span>
+      <span class="right-input-label">{{{degreeSign}}}</span>
     </label>
     <label class="item item-input">
       <span class="input-label {{#if hasError 'time'}}assertive{{/if}}">Duration</span>
