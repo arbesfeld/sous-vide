@@ -21,7 +21,6 @@ UI.registerHelper('degreeSign', function () {
 
 startCooking = function (opts) {
   var confirm = function () {
-
     // Get the duration and temperature.
     SousVide.start(); // add some parameters
 
@@ -34,19 +33,12 @@ startCooking = function (opts) {
   };
 
   if (Session.get(IS_COOKING_KEY)) {
-    var msg = 'Already cooking, are you sure you want to start a new recipe?';
-    if (Meteor.isCordova) {
-      navigator.notification.confirm(
-        msg,
-        confirm,
-        'Already Cooking',
-        ['Continue', 'Exit']
-      );
-    } else {
-      var res = confirm(msg);
-      if (res)
-        confirm();
-    }
+    MeteorAlert.confirm(
+      'Already cooking, are you sure you want to start a new recipe?',
+      confirm,
+      'Already Cooking',
+      ['Cancel', 'OK']
+    );
   } else {
     confirm();
   }
