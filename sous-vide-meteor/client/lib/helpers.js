@@ -17,4 +17,30 @@ UI.registerHelper('hrMinFormat', hrMinFormat);
 
 UI.registerHelper('degreeSign', function () {
   return "&deg;C";
-})
+});
+
+startCooking = function (opts) {
+  var confirm = function () {
+
+    // Get the duration and temperature.
+    SousVide.start(); // add some parameters
+
+    Session.set(IS_COOKING_KEY, true);
+
+    Router.go('cooking', {
+      time: opts.time,
+      temp: opts.temp
+    });
+  };
+
+  if (Session.get(IS_COOKING_KEY)) {
+    Alert.confirm(
+      'Already cooking, are you sure you want to start a new recipe?',
+      confirm,
+      'Already Cooking',
+      ['Continue', 'Exit']
+    );
+  } else {
+    confirm();
+  }
+};

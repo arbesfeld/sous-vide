@@ -38,30 +38,10 @@ var getCookTime = function () {
 
 Template.Home.events({
   'click #cook': function () {
-
-    var confirm = function () {
-
-      // Get the duration and temperature.
-      SousVide.start(); // add some parameters
-
-      Session.set(IS_COOKING_KEY, true);
-
-      Router.go('cooking', {
-        time: getCookTime(),
-        temp: getCookTemp()
-      });
-    };
-
-    if (Session.get(IS_COOKING_KEY)) {
-      Alert.confirm(
-        'Already cooking, are you sure you want to start a new recipe?',
-        confirm,
-        'Already Cooking',
-        ['Continue', 'Exit']
-      );
-    } else {
-      confirm();
-    }
+    startCooking({
+      time: getCookTime(),
+      temp: getCookTime()
+    });
   },
 
   'click #save': function () {

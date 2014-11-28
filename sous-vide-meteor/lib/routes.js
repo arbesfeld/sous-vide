@@ -1,10 +1,10 @@
 Router.configure({
-  layoutTemplate: 'Layout',
-  loadingTemplate: 'Loading',
+  layoutTemplate: 'Layout'
 });
 
 Router.onBeforeAction(function () {
   this.render('Header', { to: 'header' });
+  this.render('Footer', { to: 'footer' });
   this.next();
 });
 
@@ -47,7 +47,7 @@ Router.route('/favorites', function () {
 }, {
   name: 'favorites',
 
-  waitOn: function () {
+  subscriptions: function () {
     if (Meteor.user())
       return [Meteor.subscribe("userData"), Meteor.subscribe("favoriteRecipes")];
     else
