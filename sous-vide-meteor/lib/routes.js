@@ -2,6 +2,16 @@ Router.configure({
   layoutTemplate: 'Layout'
 });
 
+var renderBackButton = function (route) {
+  route.render('Header', {
+    to: 'header',
+    data: function () {
+      return {
+        renderBackButton: true
+      };
+  }});
+};
+
 Router.onBeforeAction(function () {
   this.render('Header', { to: 'header' });
   this.render('Footer', { to: 'footer' });
@@ -14,7 +24,7 @@ Router.onBeforeAction(function() {
   } else {
     this.next();
   }
-}, {except: ['home', 'cooking']});
+}, {except: ['home', 'cooking', 'settings']});
 
 Router.onBeforeAction(function () {
   if (Meteor.loggingIn()) {
@@ -31,13 +41,18 @@ Router.route('/', function () {
 });
 
 Router.route('/settings', function () {
-  this.render('Settings');
+  var self = this;
+
+  self.render('Settings');
+  renderBackButton(self);
 }, {
   name: 'settings'
 });
 
 Router.route('/profile', function () {
-  this.render('Profile');
+  var self = this;
+  self.render('Profile');
+  renderBackButton(self);
 }, {
   name: 'profile'
 });
@@ -105,13 +120,7 @@ Router.route('/save-recipe/:temp/:time', function () {
     }
   });
 
-  this.render('Header', {
-    to: 'header',
-    data: function () {
-      return {
-        renderBackButton: true
-      };
-    }});
+  renderBackButton(self);
 }, {
   name: 'save-recipe'
 });

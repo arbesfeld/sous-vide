@@ -13,4 +13,5 @@ reactive-var
 aldeed:collection2
 bluetooth
 meteor-alert
+u2622:persistent-session
 

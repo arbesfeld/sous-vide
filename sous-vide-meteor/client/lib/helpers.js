@@ -44,3 +44,9 @@ startCooking = function (opts) {
   }
 };
 
+isCelsius = function () {
+  return Session.equals(IS_CELSIUS_KEY, true);
+};
+
+UI.registerHelper('isCelsius', isCelsius);
+

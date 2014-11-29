@@ -2,4 +2,26 @@
   {{#contentFor 'PageHeader'}}
     Settings
   {{/contentFor}}
+
+  <div class="list">
+    <label class="item item-input">
+      <span class="input-label">Device UUID</span>
+      <input name="uuid" type="text" placeholder="" value="{{currentUUID}}">
+    </label>
+    <label class="item item-input">
+      <span class="input-label">Units</span>
+      <div class="button-bar">
+        <a class="button {{#if isCelsius}}button-positive{{/if}}" id="c-button">C</a>
+        <a class="button {{#unless isCelsius}}button-positive{{/unless}}" id="f-button">F</a>
+      </div>
+    </label>
+  </div>
+
+  {{#if hasChanged}}
+    <div class="wrapper">
+      <button class="button button-positive button-block button-full-width" id="save">
+        Save Settings
+      </button>
+    </div>
+  {{/if}}
 </template>
