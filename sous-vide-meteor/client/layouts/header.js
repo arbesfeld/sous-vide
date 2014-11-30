@@ -3,7 +3,15 @@ Template.Header.events({
     if (Meteor.user()) {
       Router.go("profile");
     } else {
-      Meteor.loginWithGoogle();
+      Meteor.loginWithGoogle({
+      }, function (err) {
+        if (err) {
+          //error handling
+          alert('error : '+err.message);
+        } else {
+
+        }
+      });
     }
   },
 

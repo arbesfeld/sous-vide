@@ -1,11 +1,9 @@
 Template.Cooking.events({
   'click #start-cooking': function () {
-    Session.set(IS_COOKING_KEY, true);
     SousVide.stop();
   },
 
   'click #stop-cooking': function () {
-    Session.set(IS_COOKING_KEY, false);
     SousVide.stop();
     Router.go('home');
   }
@@ -20,9 +18,13 @@ var targetTemp = function () {
 };
 
 Template.Cooking.helpers({
-  currentTemp: currentTemp,
+  currentTemp: function () {
+    return temperatureString(currentTemp());
+  },
 
-  targetTemp: targetTemp,
+  targetTemp: function () {
+    return temperatureString(targetTemp());
+  },
 
   tempColor: function () {
     var current = currentTemp();

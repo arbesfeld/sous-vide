@@ -15,16 +15,10 @@ hrMinFormat = function (time) {
 
 UI.registerHelper('hrMinFormat', hrMinFormat);
 
-UI.registerHelper('degreeSign', function () {
-  return "&deg;C";
-});
-
 startCooking = function (opts) {
   var confirm = function () {
     // Get the duration and temperature.
     SousVide.start(); // add some parameters
-
-    Session.set(IS_COOKING_KEY, true);
 
     Router.go('cooking', {
       time: opts.time,
@@ -50,3 +44,18 @@ isCelsius = function () {
 
 UI.registerHelper('isCelsius', isCelsius);
 
+temperatureSign = function () {
+  return "&deg;" + (isCelsius() ? 'C': 'F');
+};
+
+UI.registerHelper('temperatureSign', temperatureSign);
+
+temperatureString = function (temp) {
+  if (! isCelsius()) {
+    temp = Math.floor(temp * 1.8 + 32);
+  }
+
+  return temp + temperatureSign();
+};
+
+UI.registerHelper('temperatureString', temperatureString);

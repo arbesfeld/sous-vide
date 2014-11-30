@@ -1,6 +1,8 @@
 var hasChanged = new ReactiveVar(false);
 
-Session.setDefaultPersistent(IS_CELSIUS_KEY, true);
+if (Session.get(IS_CELSIUS_KEY) === undefined) {
+  Session.setPersistent(IS_CELSIUS_KEY, true);
+}
 
 var TEMP_CELSIUS_KEY = "TEMP_CELSIUS_KEY";
 

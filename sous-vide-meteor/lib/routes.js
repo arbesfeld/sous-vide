@@ -24,7 +24,7 @@ Router.onBeforeAction(function() {
   } else {
     this.next();
   }
-}, {except: ['home', 'cooking', 'settings']});
+}, {except: ['home', 'cooking', 'cooking.view', 'settings']});
 
 Router.onBeforeAction(function () {
   if (Meteor.loggingIn()) {
