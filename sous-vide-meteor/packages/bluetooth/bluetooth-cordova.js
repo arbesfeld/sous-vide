@@ -1,1 +1,3 @@
-BluetoothPlatform = bluetoothSerial;
+Meteor.startup(function () {
+  BluetoothPlatform = bluetoothSerial;
+});

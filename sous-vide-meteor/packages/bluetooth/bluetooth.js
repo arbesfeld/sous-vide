@@ -1,28 +1,51 @@
-Bluetooth = {};
+MeteorBluetooth = {};
 
-var bluetoothConnected = new ReactiveVar(false);
+Meteor.startup(function () {
 
-Bluetooth.isConnected = function () {
-  return bluetoothConnected.get();
-};
+  var connectedId = new ReactiveVar(false);
+  var connectedDevices = new ReactiveVar([]);
 
-Bluetooth.connect = function (uuid, success, failure) {
-  BluetoothPlatform.connect(uuid, function () {
-    bluetoothConnected.set(true);
-    success && success();
-  }, function () {
-    bluetoothConnected.set(false);
-    failure && failure();
-  });
-};
+  MeteorBluetooth.search = function (success, failure) {
+    BluetoothPlatform.list(function (devices) {
+      connectedDevices.set(devices);
+      success && success();
+    }, function () {
+      console.log("Failed to find devices");
+      failure && failure();
+    });
+  };
 
-Bluetooth.disconnect = function (success, failure) {
-  BluetoothPlatform.disconnect(function () {
-    bluetoothConnected.set(false);
-    success && success();
-  }, failure);
-};
+  MeteorBluetooth.connectedDevices = function () {
+    return connectedDevices.get();
+  };
 
-Bluetooth.subscribe = BluetoothPlatform.subscribe;
-Bluetooth.write = BluetoothPlatform.write;
+  MeteorBluetooth.isConnected = function () {
+    return connectedId.get() !== "";
+  };
+
+  MeteorBluetooth.isConnectedID = function (id) {
+    return connectedId.get() === id;
+  };
+
+  MeteorBluetooth.connect = function (uuid, success, failure) {
+    connectedId.set("");
+    BluetoothPlatform.connect(uuid, function () {
+      connectedId.set(uuid);
+      success && success();
+    }, function () {
+      failure && failure();
+    });
+  };
+
+  MeteorBluetooth.disconnect = function (success, failure) {
+    BluetoothPlatform.disconnect(function () {
+      connectedId.set("");
+      success && success();
+    }, failure);
+  };
+
+  MeteorBluetooth.subscribe = BluetoothPlatform.subscribe;
+  MeteorBluetooth.isConnected = BluetoothPlatform.isConnected;
+  MeteorBluetooth.write = BluetoothPlatform.write;
+});
 

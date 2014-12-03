@@ -19,7 +19,7 @@ var targetTemp = function () {
 
 Template.Cooking.helpers({
   currentTemp: function () {
-    return temperatureString(currentTemp());
+    return temperatureString(Session.get("TEMPERATURE"));
   },
 
   targetTemp: function () {
@@ -37,3 +37,10 @@ Template.Cooking.helpers({
     }
   }
 });
+
+Meteor.startup(function () {
+  MeteorBluetooth.subscribe('\n', function (data) {
+    Session.set("TEMPERATURE", data);
+    console.log("GOT DATA:", data);
+  });
+})

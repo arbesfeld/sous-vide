@@ -5,61 +5,68 @@ pressing 0 turns off led 4
 */
 
 #include <SoftwareSerial.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
-#define RxD 0
-#define TxD 1
+#define RxD 1
+#define TxD 0
+
+#define TEMP_PIN 3
+#define LED_PIN 7
+#define RED_PIN 5
+#define GREEN_PIN 4
+#define BLUE_PIN 3
 
 #define DEBUG_ENABLED  1
  
 SoftwareSerial blueToothSerial(RxD,TxD);
-
-int led = 7;
  
+// Setup a oneWire instance to communicate with any OneWire devices
+OneWire oneWire(TEMP_PIN);
+
+// Pass our oneWire reference to Dallas Temperature. 
+DallasTemperature sensors(&oneWire);
+
 void setup() 
 { 
-  pinMode(RxD, INPUT);
-  pinMode(TxD, OUTPUT);
-  setupBlueToothConnection();
+  blueToothSerial.begin(57600);
   
-  pinMode(led,OUTPUT);
-  digitalWrite(led,HIGH);
+  pinMode(TEMP_PIN,INPUT);
+  
+  pinMode(LED_PIN,OUTPUT);
+  digitalWrite(LED_PIN,HIGH);
  
+  pinMode(RED_PIN,OUTPUT);
+  pinMode(GREEN_PIN,OUTPUT);
+  pinMode(BLUE_PIN,OUTPUT);
 } 
  
 void loop() 
 { 
+  
   char recvChar;
-  while(1){
-    //check if there's any data sent from the remote bluetooth shield
-    if(blueToothSerial.available()){
-      recvChar = blueToothSerial.read();
-      blueToothSerial.print(recvChar);
-      
-        if(recvChar == '1')
-          digitalWrite(led,HIGH);  
-       
-        else
-          digitalWrite(led,LOW); 
-    }
-  }
+  //check if there's any data sent from the remote bluetooth shield
+  if(blueToothSerial.available()) {
+    recvChar = blueToothSerial.read();
+    blueToothSerial.print(recvChar);
+    
+    if(recvChar == '1')
+      digitalWrite(LED_PIN, HIGH);
+    else if (recvChar == '2')
+      digitalWrite(LED_PIN, LOW);
+   }
+   
+   delay(1000);
 } 
- 
-void setupBlueToothConnection()
-{
-  blueToothSerial.begin(9600); //Set BluetoothBee BaudRate to default baud rate 38400
-  delay(1000);
-  blueToothSerial.print("\r\n+STWMOD=0\r\n"); //set the bluetooth work in slave mode
-  delay(200);
-  blueToothSerial.print("\r\n+STNA=Arbesfeld\r\n"); //set the bluetooth name as "HC-05"
-  delay(200);
-  blueToothSerial.print("\r\n+STOAUT=1\r\n"); // Permit Paired device to connect me
-  blueToothSerial.print("\r\n+STAUTO=0\r\n"); // Auto-connection should be forbidden here
-  
-  delay(2000); // This delay is required.
-  //blueToothSerial.print("\r\n+INQ=1\r\n"); //make the slave bluetooth inquirable 
-  blueToothSerial.print("bluetooth connected!\n");
-  
-  delay(2000); // This delay is required.
-  blueToothSerial.flush();
-}
 
+void setColor(int red, int green, int blue)
+{
+  #ifdef COMMON_ANODE
+    red = 255 - red;
+    green = 255 - green;
+    blue = 255 - blue;
+  #endif
+  analogWrite(RED_PIN, red);
+  analogWrite(GREEN_PIN, green);
+  analogWrite(BLUE_PIN, blue);  
+}

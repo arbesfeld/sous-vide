@@ -6,13 +6,13 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0');
+  // api.versionsFrom('1.0');
 
-  api.use('reactive-var');
+  api.use('reactive-var', 'web');
   api.addFiles('bluetooth-cordova.js', 'web.cordova');
   api.addFiles('bluetooth-browser.js', 'web.browser');
   api.addFiles('bluetooth.js', 'web');
-  api.export('Bluetooth');
+  api.export('MeteorBluetooth', 'client');
 });
 
 Cordova.depends({

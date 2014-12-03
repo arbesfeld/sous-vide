@@ -4,12 +4,24 @@
   {{/contentFor}}
 
   <div class="list">
+    <div class="item item-divider">
+      Devices
+    </div>
+
+    {{#each allDevices}}
+      {{> DeviceItem}}
+    {{/each}}
     <label class="item item-input">
-      <span class="input-label">Device UUID</span>
-      <input name="uuid" type="text" placeholder="" value="{{currentUUID}}">
+      <div class="button-bar">
+       <a id="refresh" class="col col-33 col-offset-33 button {{#if isSearching}}disabled{{/if}}"><i class="{{refreshIcon}}"></i></a>
+      </div>
     </label>
+
+    <div class="item item-divider">
+      Units
+    </div>
+
     <label class="item item-input">
-      <span class="input-label">Units</span>
       <div class="button-bar">
         <a class="button {{#if isCelsius}}button-positive{{/if}}" id="c-button">C</a>
         <a class="button {{#unless isCelsius}}button-positive{{/unless}}" id="f-button">F</a>
@@ -24,4 +36,17 @@
       </button>
     </div>
   {{/if}}
+</template>
+
+<template name="DeviceItem">
+  <a class="item item-icon-right">
+    {{this.name}}
+    {{#if isConnecting}}
+      <i class="icon ion-looping"></i>
+    {{else}} {{#if isConnected}}
+      <i class="icon ion-checkmark-round"></i>
+    {{/if}}
+    {{/if}}
+  </a>
+
 </template>
