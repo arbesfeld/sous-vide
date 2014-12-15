@@ -1,12 +1,27 @@
+var SessionVar = function (name, initialValue) {
+  this.name = name;
+  this.setDefaultPersistent(name, initialValue);
+};
+
+_.extend(SessionVar, {
+  set: function (val) {
+    Session.update(this.name, val);
+  },
+
+  get: function () {
+    Session.get(this.name);
+  }
+});
+
 SousVide = {
-  _duration: new ReactiveVar(),
-  _targetTemp: new ReactiveVar(),
-  _currentTemp: new ReactiveVar(),
-  _startTime: new ReactiveVar(),
-  _remainingTime: new ReactiveVar(),
-  _isCooking: new ReactiveVar(false),
-  _isPreheating: new ReactiveVar(false),
-  _isOn: new ReactiveVar(false)
+  _duration: new SessionVar("SV_DURATION"),
+  _targetTemp: new SessionVar("SV_TARGET_TEMP"),
+  _currentTemp: new SessionVar("SV_CURRENT_TEMP"),
+  _startTime: new SessionVar("SV_START_TIME"),
+  _remainingTime: new SessionVar("SV_REMAINING_TIME"),
+  _isCooking: new SessionVar("SV_IS_COOKING", false),
+  _isPreheating: new SessionVar("SV_IS_PREHEATING", false),
+  _isOn: new SessionVar("SV_IS_ON", false)
 };
 
 _.extend(SousVide, {
@@ -22,7 +37,6 @@ _.extend(SousVide, {
     self._targetTemp.set(opts.temp);
 
     self._preheat();
-
 
     // test function
     // Meteor.setInterval(function () {
