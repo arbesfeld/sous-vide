@@ -1,46 +1,44 @@
 Template.Cooking.events({
-  'click #start-cooking': function () {
-    SousVide.stop();
-  },
-
   'click #stop-cooking': function () {
     SousVide.stop();
     Router.go('home');
+  },
+
+  'click #ready': function () {
+    SousVide.cook();
   }
 });
 
 var currentTemp = function () {
-  return 50;
-};
-
-var targetTemp = function () {
-  return 60;
+  return temperatureString(SousVide.currentTemp());
 };
 
 Template.Cooking.helpers({
   currentTemp: function () {
-    return temperatureString(Session.get("TEMPERATURE"));
+    return currentTemp();
   },
 
   targetTemp: function () {
-    return temperatureString(targetTemp());
+    return temperatureString(SousVide.targetTemp());
+  },
+
+  donePreheating: function () {
+    return SousVide.donePreheating();
+  },
+
+  preheating: function () {
+    return SousVide.isPreheating();
+  },
+
+  remainingTime: function () {
+    return SousVide.remainingTimeString();
   },
 
   tempColor: function () {
-    var current = currentTemp();
-    var target = targetTemp();
-
-    if (current < target - 1) {
-      return "calm";
-    } else if (current > target + 1) {
+    if (SousVide.heaterOn()) {
       return "assertive";
+    } else {
+      return "calm";
     }
   }
 });
-
-Meteor.startup(function () {
-  MeteorBluetooth.subscribe('\n', function (data) {
-    Session.set("TEMPERATURE", data);
-    console.log("GOT DATA:", data);
-  });
-})

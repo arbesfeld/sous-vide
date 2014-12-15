@@ -4,7 +4,7 @@ UI.registerHelper('onPage', function (pageName) {
 });
 
 UI.registerHelper('isCooking', function (pageName) {
-  return Session.get(IS_COOKING_KEY);
+  return SousVide.isCooking();
 });
 
 hrMinFormat = function (time) {
@@ -16,9 +16,14 @@ hrMinFormat = function (time) {
 UI.registerHelper('hrMinFormat', hrMinFormat);
 
 startCooking = function (opts) {
+  // if (! MeteorBluetooth.isConnected()) {
+  //   MeteorAlert.alert("Bluetooth not connected. Go to settings to connect a Bluetooth device.");
+  //   return;
+  // }
+
   var confirm = function () {
     // Get the duration and temperature.
-    SousVide.start(); // add some parameters
+    SousVide.start(opts); // add some parameters
 
     Router.go('cooking', {
       time: opts.time,
@@ -26,7 +31,7 @@ startCooking = function (opts) {
     });
   };
 
-  if (Session.get(IS_COOKING_KEY)) {
+  if (SousVide.isCooking()) {
     MeteorAlert.confirm(
       'Already cooking, are you sure you want to start a new recipe?',
       confirm,

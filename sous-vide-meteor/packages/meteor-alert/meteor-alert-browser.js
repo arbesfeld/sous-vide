@@ -7,3 +7,5 @@ MeteorAlert.confirm = function (message, callback) {
     callback();
   }
 };
+
+MeteorAlert.alert = alert;

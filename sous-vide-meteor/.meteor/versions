@@ -41,6 +41,7 @@ launch-screen@1.0.0
 livedata@1.0.11
 localstorage@1.0.1
 logging@1.0.5
+meteor-alert@1.0.0
 meteor-platform@1.2.0
 meteor@1.1.3
 minifiers@1.1.2
