@@ -14,5 +14,5 @@ Package.onUse(function(api) {
 });
 
 Cordova.depends({
-  'org.apache.cordova.dialogs': '0.2.10'
+  'org.apache.cordova.dialogs': '1.2.0'
 });

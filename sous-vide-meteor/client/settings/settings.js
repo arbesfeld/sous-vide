@@ -1,7 +1,7 @@
 var hasChanged = new ReactiveVar(false);
 
 if (Session.get(IS_CELSIUS_KEY) === undefined) {
-  Session.setPersistent(IS_CELSIUS_KEY, true);
+  Session.set(IS_CELSIUS_KEY, true);
 }
 
 var TEMP_CELSIUS_KEY = "TEMP_CELSIUS_KEY";
@@ -32,8 +32,8 @@ Template.Settings.rendered = function () {
 Template.Settings.events({
   'click #save': function () {
     var uuid = $("input[name='uuid']").val();
-    Session.setPersistent(UUID_KEY, uuid);
-    Session.setPersistent(IS_CELSIUS_KEY, Session.get(TEMP_CELSIUS_KEY));
+    Session.set(UUID_KEY, uuid);
+    Session.set(IS_CELSIUS_KEY, Session.get(TEMP_CELSIUS_KEY));
     hasChanged.set(false);
   },
 

@@ -1,17 +1,17 @@
 var SessionVar = function (name, initialValue) {
   this.name = name;
-  this.setDefaultPersistent(name, initialValue);
-};
+  console.log(Session);
+  Session.set(this.name, initialValue);
+  // this.setDefaultPersistent(name, initialValue);
 
-_.extend(SessionVar, {
-  set: function (val) {
-    Session.update(this.name, val);
+  this.set = function (val) {
+    Session.set(this.name, val);
   },
 
-  get: function () {
-    Session.get(this.name);
+  this.get = function () {
+    return Session.get(this.name);
   }
-});
+};
 
 SousVide = {
   _duration: new SessionVar("SV_DURATION"),
@@ -29,7 +29,6 @@ _.extend(SousVide, {
   start: function (opts) {
     var self = this;
     console.log("Starting sous vide");
-
     self._isCooking.set(true);
 
     self._duration.set(opts.time * 60); // in seconds

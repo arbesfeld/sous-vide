@@ -16,5 +16,5 @@ Package.onUse(function(api) {
 });
 
 Cordova.depends({
-  'com.megster.cordova.bluetoothserial': '0.3.3'
+  'com.megster.cordova.bluetoothserial': '0.4.5'
 });
